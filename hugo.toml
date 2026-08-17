@@ -1,0 +1,27 @@
+baseURL = "https://go-avkit.github.io/"
+title = "go-avkit"
+disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[params]
+  subtitle = "audio/video from pure Go, no ffmpeg"
+  description = "Pure-Go (CGO=0) audio/video toolkit. Reads time-based media starting with container demuxing, with no libav/ffmpeg linkage and no external binaries; container parsing is delegated to maintained reference libraries and mapped onto one format-neutral metadata model."
+  tagline = "A time-based media toolkit in <strong>pure Go</strong> — no <code>libav</code>, no <code>ffmpeg</code>, no external binaries."
+  pills = ["CGO_ENABLED=0", "no ffmpeg linkage", "no subprocesses", "BSD-3-Clause"]
+  primary_role = "toolkit"
+  secondary_url = "https://pkg.go.dev/github.com/go-avkit/avkit"
+  secondary_label = "Go reference"
+  leads = [
+    "Reading media in Go usually means linking <code>libav</code> or shelling out to <code>ffmpeg</code>. This does neither: it is an ordinary Go dependency that cross-compiles like the rest of your program.",
+    "<strong>Reference libraries, not re-implementations.</strong> Container parsing is delegated to the maintained libraries for each format; what this adds is the mapping of their box and element trees onto <strong>one small, format-neutral metadata model</strong>, so a caller does not learn a different vocabulary per container."
+  ]
+  principles = "Container demuxing came first because it is what everything else needs; codecs follow. What is claimed here is what is measured to work, not the roadmap."
+
+[[params.repos]]
+  name = "avkit"
+  role = "toolkit"
+  reach = "container demuxing over reference parsers"
+  gomod = true
+  result = "Reads time-based media and presents every container through one metadata model."
