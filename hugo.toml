@@ -12,7 +12,7 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
 
 [params]
   subtitle = "audio/video from pure Go, no ffmpeg"
-  description = "Pure-Go (CGO=0) audio/video toolkit. Reads and writes MP4/ISO-BMFF, Matroska/WebM and MPEG-TS and moves tracks between them without re-encoding; reads the H.264, H.265, VP8 and VP9 bitstream syntax. No libav/ffmpeg linkage, no external binaries, and no decoder."
+  description = "Pure-Go (CGO=0) audio/video toolkit. Reads and writes MP4/ISO-BMFF, Matroska/WebM and MPEG-TS, reads ADTS, MP3, FLAC, Ogg, WAV and AVI, and moves tracks between them without re-encoding, subtitles and metadata included; reads the H.264, H.265, VP8 and VP9 bitstream syntax. No libav/ffmpeg linkage, no external binaries, and no decoder."
   tagline = "A time-based media toolkit in <strong>pure Go</strong> — no <code>libav</code>, no <code>ffmpeg</code>, no external binaries."
   pills = ["CGO_ENABLED=0", "no ffmpeg linkage", "no subprocesses", "BSD-3-Clause"]
   primary_role = "containers"
@@ -28,9 +28,9 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
 [[params.repos]]
   name = "avkit"
   role = "containers"
-  reach = "MP4/ISO-BMFF, Matroska/WebM and MPEG-TS: sniff, demux, mux"
+  reach = "MP4/ISO-BMFF, Matroska/WebM and MPEG-TS read and written; ADTS, MP3, FLAC, Ogg, WAV and AVI read"
   gomod = true
-  result = "Reads and writes the three containers, and copies, cuts, joins and concatenates their tracks with no re-encoding. <code>ConformHVC1</code> makes an HEVC file one macOS will show."
+  result = "Copies, cuts, joins and concatenates tracks with no re-encoding, carrying WebVTT, SRT and TTML subtitles, edit lists, encoder priming, metadata and cover art. <code>ConformHVC1</code> makes an HEVC file one macOS will show."
 
 [[params.repos]]
   name = "bitstream"
