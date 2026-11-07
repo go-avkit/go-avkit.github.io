@@ -30,7 +30,7 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
   role = "containers"
   reach = "MP4/ISO-BMFF, Matroska/WebM and MPEG-TS read and written; ADTS, MP3, FLAC, Ogg, WAV and AVI read; an audio track extracted as ADTS, MP3, FLAC, Ogg or WAV"
   gomod = true
-  result = "Copies, cuts, joins and concatenates tracks with no re-encoding, carrying WebVTT, SRT, TTML, 3GPP tx3g and PGS subtitles, edit lists, encoder priming, metadata and cover art. <code>ConformHVC1</code> makes an HEVC file one macOS will show."
+  result = "Copies, cuts, joins and concatenates tracks with no re-encoding, carrying WebVTT, SRT, TTML, 3GPP tx3g and PGS subtitles, ALAC and TrueHD audio, chapters, edit lists, encoder priming, metadata and cover art. <code>ConformHVC1</code> makes an HEVC file one macOS will show."
 
 [[params.repos]]
   name = "bitstream"
