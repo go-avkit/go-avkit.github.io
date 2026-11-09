@@ -12,7 +12,7 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
 
 [params]
   subtitle = "audio/video from pure Go, no ffmpeg"
-  description = "Pure-Go (CGO=0) audio/video toolkit. Reads and writes MP4/ISO-BMFF, Matroska/WebM and MPEG-TS, reads ADTS, MP3, FLAC, Ogg, WAV and AVI, extracts an audio track as ADTS, MP3, FLAC, Ogg or WAV, and moves tracks between them without re-encoding, subtitles and metadata included; cuts a file into aligned CMAF/fMP4 and WebVTT segments for HLS and DASH, optionally encrypted with a clear key (CENC cenc and cbcs); reads the H.264, H.265, VP8 and VP9 bitstream syntax; decodes a restricted set of H.264 profiles to planar YUV. No libav/ffmpeg linkage, no external binaries."
+  description = "Pure-Go (CGO=0) audio/video toolkit. Reads and writes MP4/ISO-BMFF, Matroska/WebM and MPEG-TS, reads ADTS, MP3, FLAC, Ogg, WAV and AVI, extracts an audio track as ADTS, MP3, FLAC, Ogg or WAV, and moves tracks between them without re-encoding, subtitles and metadata included; cuts a file into aligned CMAF/fMP4 and WebVTT segments for HLS and DASH, optionally encrypted with a clear key (CENC cenc and cbcs); reads the H.264, H.265, VP8 and VP9 bitstream syntax; decodes a restricted set of H.264 profiles and HEVC Main and Main 10 (4:2:0) to planar YUV. No libav/ffmpeg linkage, no external binaries."
   tagline = "A time-based media toolkit in <strong>pure Go</strong> — no <code>libav</code>, no <code>ffmpeg</code>, no external binaries."
   pills = ["CGO_ENABLED=0", "no ffmpeg linkage", "no subprocesses", "BSD-3-Clause"]
   primary_role = "containers"
@@ -21,7 +21,7 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
   leads = [
     "Reading media in Go usually means linking <code>libav</code> or shelling out to <code>ffmpeg</code>. This does neither: it is an ordinary Go dependency that cross-compiles like the rest of your program.",
     "<strong>Reference libraries, not re-implementations.</strong> Container parsing is delegated to the maintained libraries for each format; what this adds is the mapping of their box and element trees onto <strong>one small, format-neutral model</strong>, and the conversion of what each container spells differently, so a track can be copied from one into another.",
-    "<strong>One decoder, H.264 only.</strong> <code>decode</code> turns H.264 samples into planar YUV for the profiles it claims and refuses the rest; nothing else here turns a sample into pixels or sound. The bitstream modules read the syntax and derive what it implies, which is what a tool that describes or remuxes a file needs."
+    "<strong>One decoder, for H.264 and HEVC.</strong> <code>decode</code> turns H.264 and HEVC (Main, Main 10, 4:2:0) samples into planar YUV for the profiles it claims and refuses the rest; nothing else here turns a sample into pixels or sound. The bitstream modules read the syntax and derive what it implies, which is what a tool that describes or remuxes a file needs."
   ]
   principles = "What is claimed here is what is measured to work, not the roadmap: 100% statement coverage, Windows, macOS and Linux, six 64-bit architectures including big-endian s390x, and another implementation asked the same question wherever one exists."
 
@@ -30,7 +30,7 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
   role = "containers"
   reach = "MP4/ISO-BMFF, Matroska/WebM and MPEG-TS read and written; ADTS, MP3, FLAC, Ogg, WAV and AVI read; an audio track extracted as ADTS, MP3, FLAC, Ogg or WAV"
   gomod = true
-  result = "Copies, cuts, joins and concatenates tracks with no re-encoding, carrying WebVTT, SRT, TTML, 3GPP tx3g and PGS subtitles, ALAC and TrueHD audio, chapters, edit lists, encoder priming, metadata and cover art. <code>container.Segment</code> cuts a file into aligned CMAF/fMP4 and WebVTT segments for HLS and DASH (VOD; the playlists are written by go-streamkit), and <code>container.EncryptSegments</code> encrypts them with Common Encryption (<code>cenc</code>, <code>cbcs</code>) from a key you supply. <code>ConformHVC1</code> makes an HEVC file one macOS will show."
+  result = "Copies, cuts, joins and concatenates tracks with no re-encoding, carrying WebVTT, SRT, TTML, 3GPP tx3g and PGS subtitles, ALAC and TrueHD audio, chapters, edit lists, encoder priming, metadata and cover art. <code>container.Segment</code> cuts a file into aligned CMAF/fMP4 and WebVTT segments for HLS and DASH (VOD; the playlists are written by go-streamkit), and <code>container.EncryptSegments</code> encrypts them with Common Encryption (<code>cenc</code>, <code>cbcs</code>) from a key you supply; <code>media.Keys</code> states how a player gets the key, as <code>EXT-X-KEY</code> and <code>EXT-X-SESSION-KEY</code> in the HLS playlists and <code>ContentProtection</code> in the DASH manifest. <code>ConformHVC1</code> makes an HEVC file one macOS will show."
 
 [[params.repos]]
   name = "bitstream"
@@ -77,9 +77,9 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
 [[params.repos]]
   name = "decode"
   role = "bitstreams"
-  reach = "H.264 decoder: Constrained Baseline, Baseline without FMO/ASO, Main and High 4:2:0 8-bit progressive; the rest refused"
+  reach = "H.264 (Constrained Baseline, Baseline without FMO/ASO, Main and High 4:2:0 8-bit progressive) and HEVC (Main, Main 10, 4:2:0) decoder; the rest refused"
   gomod = true
-  result = "Display-order planar YUV with timestamps from avcC or Annex B input, wrapping oops1/go.264. 73 of the 81 JVT H.264.1 conformance streams give the same pictures as ffmpeg (8 refused). Speed against ffmpeg is not yet measured."
+  result = "Display-order planar YUV with timestamps, and <code>PosterFrame</code> for one picture without decoding the track. H.264 wraps oops1/go.264: 73 of the 81 JVT H.264.1 conformance streams give the same pictures as ffmpeg (8 refused). HEVC wraps gen2brain/h265: 143 of the 147 JCT-VC HEVC_v1 streams give the same pictures as ffmpeg, 3 more are decided by the suite's own MD5 (ours matches, ffmpeg differs) and 1 is refused by both. Speed against ffmpeg is not yet measured."
 
 [params.brand]
 # Generated by go-fleettools/landingkit from static/img/logo.svg: the colours are
