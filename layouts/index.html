@@ -33,7 +33,7 @@
 </head>
 <body class="lm">
   <header class="nav"><div class="wrap">
-    <a class="brand" href="/"><img class="glyph" src="/img/logo.svg" width="32" height="32" alt="go-avkit logo"> {{ .Site.Title }}</a>
+    {{ partial "brand-menu.html" (dict "ctx" . "glyph" "/img/logo.svg" "glyphAlt" "go-avkit logo") }}
     {{ partial "theme-toggle.html" . }}
   </div></header>
   {{ partial "fork-ribbon.html" "https://github.com/go-avkit" }}
@@ -42,10 +42,7 @@
     <div>
       <h1 class="head">{{ .Site.Title }}</h1>
       <p class="sub">{{ .Site.Params.tagline | safeHTML }}</p>
-      <div class="cta">
-        <a class="btn btn-primary" href="https://github.com/{{ .Site.Title }}">{{ partial "icons/github.html" . }}GitHub</a>
-        <a class="btn btn-ghost" href="{{ . }}">{{ partial "icons/book.html" . }}{{ $.Site.Params.secondary_label }}</a>
-      </div>
+      {{ partial "cta.html" . }}
       <div class="trust">{{ range .Site.Params.pills }}<span class="pill">{{ . }}</span>{{ end }}</div>
     </div>
     {{ partial "hero-carousel.html" . }}
@@ -83,6 +80,6 @@
     {{ with .Site.Params.principles }}<p class="principles">{{ . | safeHTML }}</p>{{ end }}
     </div></main>
 
-  <footer><div class="wrap"><span>{{ if not (partial "mantra-on.html" $) }}BSD-3-Clause · {{ end }}<a href="https://github.com/{{ .Site.Title }}">github.com/{{ .Site.Title }}</a>{{ with .Site.Params.footer_note }} · {{ . | safeHTML }}{{ end }}</span></div></footer>
+  <footer><div class="wrap"><span>{{ if not (partial "mantra-on.html" $) }}BSD-3-Clause · {{ end }}<a href="https://github.com/{{ .Site.Title }}">github.com/{{ .Site.Title }}</a> · Design from <a href="https://github.com/go-fleettools/landingkit">landingkit</a> · Branding from <a href="https://github.com/go-avkit/brand">go-avkit/brand</a>{{ with .Site.Params.footer_note }} · {{ . | safeHTML }}{{ end }}</span></div></footer>
 </body>
 </html>

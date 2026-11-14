@@ -6,12 +6,14 @@ Live at <https://go-avkit.github.io/>.
 A single-page Hugo site. The prose, the pills and the repository cards all live
 in `hugo.toml` under `[params]`; `layouts/index.html` is shared across the
 fleet's org sites and should not need editing to add a repository — add a
-`[[params.repos]]` block instead.
+`[[params.repos]]` block instead. The hero's buttons are `[[params.cta]]` entries
+(`docs`, `github`, `link`); the kit puts them in its own order.
 
 | Path | Purpose |
 | --- | --- |
 | `hugo.toml` | site config, prose and the repository cards |
-| `layouts/index.html` | the whole page: markup, CSS, theme toggle |
+| `layouts/index.html` | the page: markup and the repository cards' own rules; the title menu, hero buttons and theme toggle are the kit's partials |
+| `.github/workflows/links.yml` | builds the site and checks every link and image of the built page with `landingkit links` |
 | `static/img/logo.svg` | the 88px organisation mark |
 
 Theme: light, dark and system, defaulting to system, applied before first paint.
