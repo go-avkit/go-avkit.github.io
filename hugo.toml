@@ -43,7 +43,7 @@ disableKinds = ["taxonomy", "term", "rss", "sitemap", "404"]
   role = "containers"
   reach = "MP4/ISO-BMFF, Matroska/WebM and MPEG-TS read and written; ADTS, MP3, FLAC, Ogg, WAV and AVI read; an audio track extracted as ADTS, MP3, FLAC, Ogg or WAV"
   gomod = true
-  result = "Copies, cuts, joins and concatenates tracks with no re-encoding, carrying WebVTT, SRT, TTML, 3GPP tx3g and PGS subtitles, ALAC and TrueHD audio, chapters, edit lists, encoder priming, metadata and cover art. <code>container.Segment</code> cuts a file into aligned CMAF/fMP4 and WebVTT segments for HLS and DASH (VOD; the playlists are written by go-streamkit), and <code>container.EncryptSegments</code> encrypts them with Common Encryption (<code>cenc</code>, <code>cbcs</code>) from a key you supply; <code>media.Keys</code> states how a player gets the key, as <code>EXT-X-KEY</code> and <code>EXT-X-SESSION-KEY</code> in the HLS playlists and <code>ContentProtection</code> in the DASH manifest. <code>ConformHVC1</code> makes an HEVC file one macOS will show."
+  result = "Reads hostile files within bounds: since v0.17.0 a Matroska file that would unlace more frames than a track or the file may hold (or than a block has bytes for) is refused with <code>ErrReaderLimit</code> before anything is allocated, and <code>ReaderLimits</code> lowers the bounds. Copies, cuts, joins and concatenates tracks with no re-encoding, carrying WebVTT, SRT, TTML, 3GPP tx3g and PGS subtitles, ALAC and TrueHD audio, chapters, edit lists, encoder priming, metadata and cover art. <code>container.Segment</code> cuts a file into aligned CMAF/fMP4 and WebVTT segments for HLS and DASH (VOD; the playlists are written by go-streamkit), and <code>container.EncryptSegments</code> encrypts them with Common Encryption (<code>cenc</code>, <code>cbcs</code>) from a key you supply; <code>media.Keys</code> states how a player gets the key, as <code>EXT-X-KEY</code> and <code>EXT-X-SESSION-KEY</code> in the HLS playlists and <code>ContentProtection</code> in the DASH manifest. <code>ConformHVC1</code> makes an HEVC file one macOS will show."
 
 [[params.repos]]
   name = "bitstream"
@@ -91,9 +91,8 @@ disableKinds = ["taxonomy", "term", "rss", "sitemap", "404"]
   name = "worker"
   role = "worker"
   reach = "poster and probe for a page that links neither a container reader nor a decoder"
-  # No gomod: pkg.go.dev answers 404 for this module today, and the card would
-  # link a Go Reference badge to nothing. Set it once the page exists.
-  result = "A <code>js/wasm</code> Web Worker over go-avkit's container reader (MP4, WebM/Matroska) and its H.264 decoder: <strong>poster</strong> returns a JPEG of the frame at a time, <strong>probe</strong> returns container, codec, size and duration. A request can only lower the worker's limits, and a hostile file is refused rather than decoded."
+  gomod = true
+  result = "Latest release v0.1.2. A <code>js/wasm</code> Web Worker over go-avkit's container reader (MP4, WebM/Matroska) and its H.264 decoder: <strong>poster</strong> returns a JPEG of the frame at a time, <strong>probe</strong> returns container, codec, size and duration. A request can only lower the worker's limits, and a hostile file is refused rather than decoded."
 
 [[params.repos]]
   name = "decode"
