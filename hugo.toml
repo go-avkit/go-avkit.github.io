@@ -121,3 +121,7 @@ disableKinds = ["taxonomy", "term", "rss", "sitemap", "404"]
   chipFgDark = "#85e3ef"
   statsEnd = "#caf3f8"
   bandText = "#dcf7fa"
+
+# The architectures the tests RUN on, read from the library's CI.
+[params.mantra]
+  goarch = ["amd64", "arm64", "riscv64", "loong64", "ppc64le", "s390x"]
