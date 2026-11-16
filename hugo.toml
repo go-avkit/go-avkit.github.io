@@ -19,7 +19,7 @@ disableKinds = ["taxonomy", "term", "rss", "sitemap", "404"]
   leads = [
     "Reading media in Go usually means linking <code>libav</code> or shelling out to <code>ffmpeg</code>. This does neither: it is an ordinary Go dependency that cross-compiles like the rest of your program.",
     "<strong>Reference libraries, not re-implementations.</strong> Container parsing is delegated to the maintained libraries for each format; what this adds is the mapping of their box and element trees onto <strong>one small, format-neutral model</strong>, and the conversion of what each container spells differently, so a track can be copied from one into another.",
-    "<strong>One decoder, for H.264 and HEVC.</strong> <code>decode</code> turns H.264 and HEVC (Main, Main 10, 4:2:0) samples into planar YUV for the profiles it claims and refuses the rest; it also decodes FLAC, MP3 and Opus to PCM and, since decode v0.6.0, AAC-LC and HE-AAC v1 and, since v0.7.0, HE-AAC v2 (not Vorbis or MP2); nothing else here turns a sample into pixels or sound. The bitstream modules read the syntax and derive what it implies, which is what a tool that describes or remuxes a file needs."
+    "<strong>One decoder, for H.264 and HEVC.</strong> <code>decode</code> turns H.264 and HEVC (Main, Main 10, 4:2:0) samples into planar YUV for the profiles it claims and refuses the rest; it also decodes FLAC, MP3 and Opus to PCM and, since decode v0.6.0, AAC-LC and HE-AAC v1 and, since v0.7.0, HE-AAC v2 (not Vorbis or MP2); nothing else here is used to turn a sample into pixels or sound (h265 v0.14.0 begins a decoder of our own, intra pictures only, which decode does not use yet). The bitstream modules read the syntax and derive what it implies, which is what a tool that describes or remuxes a file needs."
   ]
   principles = "What is claimed here is what is measured to work, not the roadmap: 100% statement coverage, Windows, macOS and Linux, six 64-bit architectures including big-endian s390x, and another implementation asked the same question wherever one exists."
 
@@ -62,9 +62,9 @@ disableKinds = ["taxonomy", "term", "rss", "sitemap", "404"]
 [[params.repos]]
   name = "h265"
   role = "bitstreams"
-  reach = "H.265/HEVC syntax"
+  reach = "H.265/HEVC syntax, and since v0.14.0 the first part of an HEVC decoder of our own: intra pictures only"
   gomod = true
-  result = "The NAL layer, the parameter sets, the slice segment header and the boundaries between coded pictures."
+  result = "The NAL layer, the parameter sets, the slice segment header and the boundaries between coded pictures. Since v0.14.0, the CABAC engine and the full slice-data syntax (all 52215 conformance slices walk to their last bit), intra reconstruction with deblocking and SAO (509 of 509 hashed intra pictures match their decoded picture hash SEI) and the decoded picture buffer. Inter prediction is not reconstructed yet, and decode does not use it: HEVC in decode is still the third-party decoder. v0.14.0 also changes Unit.TemporalID, which returned TemporalId + 2 up to v0.13.2 and now returns TemporalId."
 
 [[params.repos]]
   name = "boolcoder"
