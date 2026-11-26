@@ -64,7 +64,7 @@ disableKinds = ["taxonomy", "term", "rss", "sitemap", "404"]
   role = "bitstreams"
   reach = "H.265/HEVC syntax and an HEVC decoder of our own"
   gomod = true
-  result = "NAL layer, parameter sets, slice headers and a conformance-verified decoder with a public Decoder API. About 0.2 to 0.3 of ffmpeg's speed on one core, an open defect. <a href=\"https://go-avkit.github.io/docs/main/\">Speed, versions and measurements</a>."
+  result = "NAL layer, parameter sets, slice headers and a conformance-verified decoder with a public Decoder API. About 0.2 to 0.3 of ffmpeg's speed on one core, an open defect. <a href=\"https://go-avkit.github.io/docs/main/history/\">Speed, versions and measurements</a>."
 
 [[params.repos]]
   name = "boolcoder"
